@@ -1,101 +1,58 @@
 <template>
-<div>
-    <HeaderStudent v-on:search:studentId="SearchStudent" />
-    <br /><br />
-    <div class="container">
-        <div class="row">
-            <div v-bind:key="student.studentId" v-for="student in StudentInSearch">
-                <StudentItem v-bind:student="student" v-on:delete:student="DeleteStudent" />
-            </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="height:70px">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Student</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor03">
 
         </div>
+        <div class="navbar-nav mx-auto  justify-content-center w-50 order-1">
+            <form class="form-inline">
+
+                <input v-model="search" v-on:keydown.enter.prevent="SearchBook" class="form-control mr-sm-2 " type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="button" v-on:click="SearchStudent">Search</button>&nbsp;&nbsp;
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" v-on:click="ClearSearch">Clear</button>&nbsp;&nbsp;
+
+            </form>
+
+        </div>
+        <div class=" order-0 order-md-1 w-25" id="navbarColor01">
+            <div class="navbar-nav mr-auto d-flex justify-content-end">
+                <a class="btn btn-info my-2 my-sm-0" href="/addstudent">Add New Student</a>&nbsp;&nbsp;
+            </div>
+        </div>
     </div>
-    <br /><br />
-</div>
+</nav>
 </template>
 
 <script>
-import StudentItem from './StudentItem';
-import HeaderStudent from './HeaderStudent';
-import axios from "axios";
-
 export default {
+    name: "HeaderStudent",
+    methods: {
+        SearchStudent() {
+            this.$emit('search:studetId', this.search);
 
-    name: "Student",
-    components: {
-        StudentItem,
-        HeaderStudent
+        },
+        ClearSearch() {
+            this.search = "";
+            this.$emit('search:studentId', this.search);
+
+        }
     },
     data() {
         return {
-            search: "",
-            student: [],
-            //studentsearch: []
+            search: ''
         }
     },
-    async created() {
-
-    },
-    async mounted() {
-        //Code for GET students from API
-        const response = await axios.get(this.$apiUrl + "student");
-        this.student = await response.data.data;
-        
-    },
-    methods: {
-        SearchStudents: function (searchvalue) {
-            this.search = searchvalue;
-        },
-        async DeleteStudent(studentId) {
-             await axios.delete(this.$apiUrl + "student/" + studentId);
-             var studentIndex=this.student.findIndex(x => x.studentId === studentId);
-             this.student.splice(studentIndex, 1);
-             this.studentsearch = this.student;
-        },
-
-    },
-    computed: {
-
-        StudentInSearch: function () {
-            if (this.search != "") {
-                return this.student.filter((student) => {
-                    return student.studentId(this.search)
-                });
-
-            } else {
-                return this.student;
-            }
-        }
-
-    },
-    filters: {
-
-    }
 }
 </script>
 
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.4;
-}
-
-#nav {
-    padding: 30px;
-}
-
-#nav a {
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-    color: #42b983;
+<style scoped>
+.book-item {
+    background: #f4f4f4;
+    padding: 10px;
+    border-bottom: 1px #ccc dotted;
 }
 </style>

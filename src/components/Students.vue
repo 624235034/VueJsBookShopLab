@@ -1,10 +1,10 @@
 <template>
 <div>
-    <HeaderStudent v-on:search:studentId="SearchStudent" />
+    <HeaderStudent v-on:search:studentId="SearchStudents" />
     <br /><br />
     <div class="container">
         <div class="row">
-            <div v-bind:key="student.studentId" v-for="student in StudentInSearch">
+            <div v-bind:key="student.number" v-for="student in StudentInSearch">
                 <StudentItem v-bind:student="student" v-on:delete:student="DeleteStudent" />
             </div>
 
@@ -21,7 +21,7 @@ import axios from "axios";
 
 export default {
 
-    name: "Student",
+    name: "Students",
     components: {
         StudentItem,
         HeaderStudent
@@ -29,7 +29,7 @@ export default {
     data() {
         return {
             search: "",
-            student: [],
+            students: [],
             //studentsearch: []
         }
     },
@@ -38,19 +38,19 @@ export default {
     },
     async mounted() {
         //Code for GET students from API
-        const response = await axios.get(this.$apiUrl + "student");
-        this.student = await response.data.data;
+        const response = await axios.get(this.$apiUrl + "students");
+        this.students = await response.data.data;
         
     },
     methods: {
         SearchStudents: function (searchvalue) {
             this.search = searchvalue;
         },
-        async DeleteStudent(studentId) {
-             await axios.delete(this.$apiUrl + "student/" + studentId);
-             var studentIndex=this.student.findIndex(x => x.studentId === studentId);
-             this.student.splice(studentIndex, 1);
-             this.studentsearch = this.student;
+        async DeleteStudent(number) {
+             await axios.delete(this.$apiUrl + "student/" + number);
+             var studentIndex=this.students.findIndex(x => x.number === number);
+             this.students.splice(studentIndex, 1);
+             this.studentsearch = this.students;
         },
 
     },
@@ -58,12 +58,12 @@ export default {
 
         StudentInSearch: function () {
             if (this.search != "") {
-                return this.student.filter((student) => {
+                return this.students.filter((student) => {
                     return student.studentId(this.search)
                 });
 
             } else {
-                return this.student;
+                return this.students;
             }
         }
 

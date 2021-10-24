@@ -13,13 +13,13 @@
             <div class="col">
                 <div class="form-group">
                     <label for="title">studentId:</label>
-                    <input type="text" v-model="student.studetId" class="form-control" id="studentId" placeholder="Enter StudentId" name="studentId">
+                    <input type="text" v-model="student.studentId" class="form-control" id="studentId" placeholder="Enter StudentId" name="studentId">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                     <label for="author">studentName:</label>
-                    <input type="text" v-model="student.studentName" class="form-control" id="atudentName" placeholder="Enter StudentName" name="studentName">
+                    <input type="text" v-model="student.studentName" class="form-control" id="studentName" placeholder="Enter StudentName" name="studentName">
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@ export default {
         return {
             student: {
                 studentId: "",
-                studentName: "",
+                studentName: ""
             }
         }
     },
@@ -48,14 +48,14 @@ export default {
         async SaveStudent() {
             
             await axios.post(this.$apiUrl + "student", this.student);
-            await this.$router.push('/student');
+            await this.$router.push('/students');
         
 
         },
         Cancel() {
             if (confirm("Do you want to cancel adding this student?")) {
 
-                this.$router.push('/student');
+                this.$router.push('/students');
 
             }
 
