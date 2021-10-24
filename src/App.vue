@@ -21,7 +21,7 @@
                     <router-link class="nav-link" to="/">Books <span class="sr-only">(current)</span></router-link> |
                 </li>
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/authors">Authors</router-link>
+                    <router-link class="nav-link" to="/student">Student</router-link>
                 </li>
                 <li class="nav-item">
                     <router-link class="nav-link" to="/publishers">Publishers</router-link>
@@ -38,7 +38,7 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom">
 
         <div class="container d-flex justify-content-center">
-            <span class="navbar-text">© 2020 Computer Science, Faculty of Science and Technology, Songkhla Rajabhat University. All Rights Reserved</span>
+            <span class="navbar-text">© 2020 Information Technology, Faculty of Science and Technology, Songkhla Rajabhat University. All Rights Reserved</span>
         </div>
 
     </nav>
